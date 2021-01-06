@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/', 'App\Http\Controllers\DashboardController@index');
+Route::get('/account/new', 'App\Http\Controllers\DashboardController@addAccount');
+Route::get('/account/all', 'App\Http\Controllers\DashboardController@viewAccounts');
+Route::get('/admin/details', 'App\Http\Controllers\DashboardController@adminDetails');
+Route::get('/admin/change-password', 'App\Http\Controllers\DashboardController@adminChangePassword');
