@@ -1,11 +1,10 @@
-@extends('layout')
+@extends('layout.layout', ['page_title' => 'Change Admin Password'])
 
-@section('page-title')
-Change Admin Password
-@stop
 
-@section('content')
-<div>
-CHANGE PASSWORD HERE
-</div>
+@section('page')
+
+@include('layout.header')
+
+CHANGE ADMIN PASSWORD
+
 @stop

@@ -1,11 +1,10 @@
-@extends('layout')
+@extends('layout.layout', ['page_title' => 'Registered Accounts'])
 
-@section('page-title')
-Registered Accounts
-@stop
 
-@section('content')
-<div>
-LIST OF ACCOUNTS HERE
-</div>
+@section('page')
+
+@include('layout.header')
+
+ALL ACCOUNTS
+
 @stop

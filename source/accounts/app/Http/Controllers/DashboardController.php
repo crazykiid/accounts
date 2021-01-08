@@ -12,15 +12,16 @@ class DashboardController extends Controller
 		return view('dashboard');
 	}
 	
-	// accounts
-	function addAccount()
+	// add new
+	function addAccount(request $req)
 	{
-		return view('new_account');
+		return $req;
 	}
 
 	function viewAccounts()
 	{
-		return view('all_accounts');
+		$data = [];
+		return view('all_accounts', $data);
 	}
 
 	// setting

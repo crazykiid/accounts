@@ -1,11 +1,10 @@
-@extends('layout')
+@extends('layout.layout', ['page_title' => 'Admin Details'])
 
-@section('page-title')
-Admin Details
-@stop
 
-@section('content')
-<div>
+@section('page')
+
+@include('layout.header')
+
 ADMIN DETAILS HERE
-</div>
+
 @stop

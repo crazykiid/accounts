@@ -1,11 +1,12 @@
-@extends('layout')
+@extends('layout.layout', ['page_title' => 'Home'])
 
-@section('page-title')
-Home
-@stop
 
-@section('content')
-<div>
-DATA HERE
-</div>
+@section('page')
+
+@include('layout.header')
+
+@if(Session::get('username'))
+Welcome {{ Session::get('username') }}!
+@endif
+
 @stop
