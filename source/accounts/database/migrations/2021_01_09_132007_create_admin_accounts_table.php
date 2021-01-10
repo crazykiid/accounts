@@ -15,7 +15,7 @@ class CreateAdminAccountsTable extends Migration
     {
         Schema::create('admin_accounts', function (Blueprint $table) {
             $table->id('_id');
-            $table->string('_username', 63);
+            $table->string('_username', 63)->unique('USERNAME');
             $table->string('_password');
             $table->timestamp('_reg_at')->useCurrent();
         });

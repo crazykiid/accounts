@@ -16,10 +16,10 @@ class CreateUserAccountsTable extends Migration
         Schema::create('user_accounts', function (Blueprint $table) {
             $table->id('_id');
             $table->string('_name', 63);
-            $table->string('_email', 63);
-            $table->string('_contact', 15);
+            $table->string('_email', 63)->unique('EMAIL');
+            $table->string('_contact', 15)->unique('CONTACT');
             $table->string('_password');
-            $table->integer('_status')->unsigned();
+            $table->integer('_status')->default('0')->unsigned();
             $table->timestamp('_reg_at')->useCurrent();
         });
     }

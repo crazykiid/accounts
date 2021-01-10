@@ -14,24 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 // php artisan make:controller AccountController
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-
-//Route::view('/login', 'account/login')->middleware('admin');
-//Route::post('/login', 'App\Http\Controllers\AccountController@login');
-
 Route::group(['middleware' => 'admin'], function(){
-	Route::view('/login', 'account/login');
-	Route::post('/login', 'App\Http\Controllers\AccountController@login');
-	Route::get('/', 'App\Http\Controllers\DashboardController@index');
-	Route::get('/logout', 'App\Http\Controllers\AccountController@logout');
-	Route::view('/account/new', 'new_account');
-	Route::post('/account/new', 'App\Http\Controllers\DashboardController@addAccount');
-	Route::get('/account/all', 'App\Http\Controllers\DashboardController@viewAccounts');
-	Route::get('/admin/details', 'App\Http\Controllers\DashboardController@adminDetails');
-	Route::get('/admin/change-password', 'App\Http\Controllers\DashboardController@adminChangePassword');
+	Route::view('/login', 'login');
+	Route::post('/login', 'App\Http\Controllers\AdminAcController@login');
+	Route::view('/', 'dashboard');
+	Route::view('/about', 'about');
+	Route::get('/logout', 'App\Http\Controllers\AdminAcController@logout');
+
+	Route::view('/accounts/new', 'accounts.create');
+	Route::post('/accounts/new', 'App\Http\Controllers\UserAcController@createUserAc');
+	Route::get('/accounts/all', 'App\Http\Controllers\UserAcController@usersAll');
+	Route::get('/accounts/lock/{id}', 'App\Http\Controllers\UserAcController@lockUserAc');
+	Route::get('/accounts/unlock/{id}', 'App\Http\Controllers\UserAcController@unlockUserAc');
+	Route::get('/accounts/suspend/{id}', 'App\Http\Controllers\UserAcController@suspendUserAc');
+
+	Route::view('/admin/change-password', 'admin.change_password');
 });
 
 

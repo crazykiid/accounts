@@ -19,15 +19,15 @@ class AdminAuth
     {
         $path = $request->path();
         
-        if($path == "login" && empty(\Session::get('username')))
+        if($path == "login" && empty(Session::get('admin_uname')))
         {
             return $next($request);
         }
-        elseif($path == "login" && \Session::get('username'))
+        elseif($path == "login" && Session::get('admin_uname'))
         {
             return redirect('/'); 
         }
-        elseif(\Session::get('username'))
+        elseif(Session::get('admin_uname'))
         {
             return $next($request);
         }
