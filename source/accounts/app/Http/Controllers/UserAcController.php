@@ -9,14 +9,137 @@ use Illuminate\Support\Facades\Hash;
 
 class UserAcController extends Controller
 {
-	// ~/accounts/all
+	//GET: ~/accounts/all
     public function usersAll()
     {
-		$data = User_Account::all();
+    	//all();
+		$data = User_Account::orderBy('_id', 'desc')->get()->makeHidden(['_password']);
 		return view('accounts.all', ['data' => $data]);
     }
 
-	// ~/accounts/lock/{id}
+	//POST: ~/accounts/search
+    public function searchUserAc(Request $q)
+    {
+    	if($q->has('q'))
+    	{
+	    	$query = $q->q;
+	    	try
+			{
+				$data = User_Account::where('_name', 'LIKE', "%{$query}%")->get()->makeHidden(['_password']);
+		    	if($data)
+		        {
+		            return response()->json(['msg' => 'success', 'data' => $data, 'status' => 200]);
+		    	}
+		    	else
+		        {
+		            return response()->json(['msg' => 'success', 'data' => $data, 'status' => 200]);
+		    	}
+			}
+			catch(\Exception $e)
+			{
+				return response()->json(['msg' => 'something went wrong. try again.', 'data' => '', 'status' => 500], 500);
+			}
+    	}
+    	else{
+			return response()->json(['msg' => 'required parameter missing or invalid.', 'data' => '', 'status' => 400], 400);
+    	}
+    }
+
+	//GET: ~/accounts/update-basic/{id}
+    public function editBasicUserAc($id)
+    {
+		try
+		{
+			$data = User_Account::where('_id', $id)->first();
+			return view('accounts.edit', ['data' => $data]);
+		}
+		catch(\Exception $e)
+		{
+			Session::flash('res_msg', 'error occurred, try again');
+            Session::flash('res_class', 'alert-danger');
+    		return back();
+		}
+    }
+
+	//POST: ~/accounts/update-basic/{id}
+    public function updateBasicUserAc(Request $req, $id)
+    {
+    	if($req->has('_name', '_email', '_contact')){
+    		$name = $req->_name;
+    		$email = $req->_email;
+    		$contact = $req->_contact;
+			try
+			{
+				$data = User_Account::where('_id', $id)->first();
+				$data->_name = $name;
+				$data->_email = $email;
+				$data->_contact = $contact;
+				$data->save();
+				if($data)
+		        {
+		            Session::flash('res_msg', 'account updated');
+		            Session::flash('res_class', 'alert-success');
+		            return back();
+		    	}
+		    	else
+		    	{
+					Session::flash('res_msg', 'something went wrong, try again');
+	            	Session::flash('res_class', 'alert-danger');
+	            	return back();
+		    	}
+			}
+			catch(\Exception $e)
+			{
+				Session::flash('res_msg', 'error occurred, try again');
+	            Session::flash('res_class', 'alert-danger');
+	    		return back();
+			}
+    	}
+    	else{
+    		Session::flash('res_msg', 'required parameter missing or invalid');
+            Session::flash('res_class', 'alert-danger');
+    		return back();
+    	}
+    }
+
+	//POST: ~/accounts/update-basic/{id}/password
+    public function updatePassUserAc(Request $req, $id)
+    {
+    	if($req->has('_password')){
+    		$password = Hash::make($req->_password);
+			try
+			{
+				$data = User_Account::where('_id', $id)->first();
+				$data->_password = $password;
+				$data->save();
+				if($data)
+		        {
+		            Session::flash('res_msg', 'password updated');
+		            Session::flash('res_class', 'alert-success');
+		            return back();
+		    	}
+		    	else
+		    	{
+					Session::flash('res_msg', 'something went wrong, try again');
+	            	Session::flash('res_class', 'alert-danger');
+	            	return back();
+		    	}
+			}
+			catch(\Exception $e)
+			{
+				Session::flash('res_msg', 'error occurred, try again');
+	            Session::flash('res_class', 'alert-danger');
+	    		return back();
+			}
+    	}
+    	else{
+    		Session::flash('res_msg', 'required parameter missing or invalid');
+            Session::flash('res_class', 'alert-danger');
+    		return back();
+    	}
+    }
+
+	//GET: ~/accounts/lock/{id}
     public function lockUserAc($id)
     {
 		try
@@ -46,7 +169,7 @@ class UserAcController extends Controller
 		}
     }
 
-	// ~/accounts/unlock/{id}
+	//GET: ~/accounts/unlock/{id}
     public function unlockUserAc($id)
     {
 		try
@@ -76,7 +199,7 @@ class UserAcController extends Controller
 		}
     }
 
-	// ~/accounts/suspend/{id}
+	//GET: ~/accounts/suspend/{id}
     public function suspendUserAc($id)
     {
 		try
@@ -106,7 +229,37 @@ class UserAcController extends Controller
 		}
     }
 
-    // ~/accounts/new
+	//GET: ~/accounts/activate/{id}
+    public function activateUserAc($id)
+    {
+		try
+		{
+			$data = User_Account::where('_id', $id)->first();
+	    	$data->_status = 1;
+	        $data->save();
+
+	    	if($data)
+	        {
+	            Session::flash('res_msg', 'account activated');
+	            Session::flash('res_class', 'alert-success');
+	            return back();
+	    	}
+	    	else
+	        {
+	            Session::flash('res_msg', 'something went wrong, try again');
+	            Session::flash('res_class', 'alert-danger');
+	            return back();
+	    	}
+		}
+		catch(\Exception $e)
+		{
+			Session::flash('res_msg', 'error occurred, try again');
+            Session::flash('res_class', 'alert-danger');
+    		return back();
+		}
+    }
+
+    //POST: ~/accounts/new
     public function createUserAc(Request $req)
     {
     	$u_name = $req->_name;
