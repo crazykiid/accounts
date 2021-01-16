@@ -7,7 +7,7 @@
 <div class="container-fluid p-3" style="min-height:400px">
 	<!-- add new button -->
 	<div>
-		<a class="btn btn-outline-success my-1" href="/accounts/new" role="button" data-toggle="tooltip" data-placement="bottom" title="Create New Account"><i class="fa fa-plus" aria-hidden="true"></i> Create New</a>
+		<a class="btn btn-light my-1" href="/accounts/new" role="button" data-toggle="tooltip" data-placement="right" title="Create New Account"><i class="fa fa-plus" aria-hidden="true"></i> Create New</a>
 	</div>
 
 	<!-- user account stats -->

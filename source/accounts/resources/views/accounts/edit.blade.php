@@ -31,18 +31,18 @@
                             @csrf
                             <div class="form-group">
                                 <label for="username">Name</label>
-                                <input type="text" name="_name" class="form-control" id="username" value="@if(Session::has('res_data')){{Session::get('res_data._name')}}@else{{$data->_name}}@endif">
+                                <input type="text" name="_name" class="form-control" id="username" value="@if(Session::has('res_data')){{ Session::get('res_data._name') }}@else{{ $data->_name }}@endif">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" name="_email" class="form-control" id="email" value="@if(Session::has('res_data')){{Session::get('res_data._email')}}@else{{$data->_email}}@endif">
+                                <input type="email" name="_email" class="form-control" id="email" value="@if(Session::has('res_data')){{ Session::get('res_data._email') }}@else{{ $data->_email }}@endif">
                             </div>
                             <div class="form-group">
                                 <label for="contact">Contact</label>
-                                <input type="number" name="_contact" class="form-control" id="contact" value="@if(Session::has('res_data')){{Session::get('res_data._contact')}}@else{{$data->_contact}}@endif">
+                                <input type="number" name="_contact" class="form-control" id="contact" value="@if(Session::has('res_data')){{ Session::get('res_data._contact') }}@else{{ $data->_contact }}@endif">
                             </div>
                             <div style="margin-top:15px;">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Update</button>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i> Update</button>
                             </div>
                         </form>
                     </div>
@@ -54,7 +54,7 @@
                                 <input type="password" name="_password" class="form-control" id="password">
                             </div>
                             <div style="margin-top:15px;">
-                                <button type="submit" class="btn btn-outline-danger"><i class="fa fa-plus" aria-hidden="true"></i> Update Password</button>
+                                <button type="submit" class="btn btn-outline-danger"><i class="fa fa-refresh" aria-hidden="true"></i> Update Password</button>
                             </div>
                         </form>
                     </div>

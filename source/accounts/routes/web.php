@@ -20,7 +20,9 @@ Route::group(['middleware' => 'admin'], function(){
 	Route::view('/', 'dashboard');
 	Route::view('/about', 'about');
 	Route::get('/logout', 'App\Http\Controllers\AdminAcController@logout');
-
+	Route::view('/admin/change-password', 'admin.change_password');
+	Route::post('/admin/change-password', 'App\Http\Controllers\AdminAcController@updatePass');
+	
 	Route::view('/accounts/new', 'accounts.create');
 	Route::post('/accounts/new', 'App\Http\Controllers\UserAcController@createUserAc');
 	Route::get('/accounts/all', 'App\Http\Controllers\UserAcController@usersAll');
@@ -36,7 +38,7 @@ Route::group(['middleware' => 'admin'], function(){
 
 	Route::post('/accounts/search', 'App\Http\Controllers\UserAcController@searchUserAc');
 
-	Route::view('/admin/change-password', 'admin.change_password');
+
 });
 
 

@@ -28,7 +28,7 @@
 		    	<li class="nav-item dropdown p-2">
 		        	<a class="nav-link dropdown-toggle" href="#" id="adminDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color:#e5e5e5;border-radius:.25rem;">
 		        		<i class="fa fa-user-circle" aria-hidden="true"></i>
-		        		@if(Session::has('admin_uname')){{Session::get('admin_uname')}}@endif
+		        		@if(Session::has('admin_uname')){{ Session::get('admin_uname') }}@endif
 		        	</a>
 		        	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
 		            	<a class="dropdown-item" href="/admin/change-password">Change Password</a>

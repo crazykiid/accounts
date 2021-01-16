@@ -9,5 +9,6 @@ class Admin_Account extends Model
 {
 	public $table = 'Admin_Accounts';
 	public $timestamps = false;
+	public $primaryKey = '_id';
     use HasFactory;
 }
