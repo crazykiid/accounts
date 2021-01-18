@@ -12,7 +12,7 @@ class AdminAcController extends Controller
     //POST: ~/admin/change-password
     public function updatePass(Request $req)
     {
-        if($req->has('_password')){
+        if($req->has('_password') && strlen($req->_password) > 0){
             $password = Hash::make($req->_password);
             $id = Session::get('admin_id');
             try

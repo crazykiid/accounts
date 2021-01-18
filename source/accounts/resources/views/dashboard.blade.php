@@ -28,7 +28,7 @@
 					<a href="/accounts/all" class="link">
 				        <div class="card-body d-flex flex-column">
 				        	Total Registered Users
-				        	<span class="display-4">0</span>
+				        	<span class="display-4">{{ $data['total_reg_users'] }}</span>
 				        </div>
 			    	</a>
 				</div>
@@ -38,17 +38,17 @@
 			        <a href="/accounts/active" class="link">
 				        <div class="card-body d-flex flex-column">
 				        	Total Active Users
-				        	<span class="display-4">0</span>
+				        	<span class="display-4">{{ $data['total_act_users'] }}</span>
 				        </div>
 			    	</a>
 				</div>			
 			</div>
 			<div class="col-lg-3">
 				<div class="card my-2 bg-light">
-			        <a href="/accounts/pending" class="link">
+			        <a href="/accounts/inactive" class="link">
 				        <div class="card-body d-flex flex-column">
-				        	Pending Activation Requests
-				        	<span class="display-4">0</span>
+				        	Total Inactive Users
+				        	<span class="display-4">{{ $data['total_dct_users'] }}</span>
 				        </div>
 			    	</a>
 				</div>			
@@ -87,10 +87,10 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <script type="text/javascript">
 var chartData = {
-  labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
+  labels: {!! json_encode($data['line']['labels']) !!},
   datasets: [{
   	label: "User Registered",
-    data: [4, 6, 0, 9, 3, 7, 12],
+    data: {{ json_encode($data['line']['data']) }},
   }]
 };
 
@@ -103,7 +103,7 @@ if (chLine) {
     legend: { display: false },
 		title: {
         display: true,
-        text: 'Daily Registrations in January'
+        text: 'Daily Registrations in {{ date('F') }}'
 		}
 	}
   });
@@ -112,10 +112,10 @@ if (chLine) {
 
 <script type="text/javascript">
 var chartData = {
-  labels: ["Jan" , "Feb" , "Mar" , "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  labels: {!! json_encode($data['bar']['labels']) !!},
   datasets: [{
   	label: "User Registered",
-    data: [589, 445, 483, 503, 689, 692, 634],
+    data: {{ json_encode($data['bar']['data']) }},
   }]
 };
 
@@ -128,7 +128,7 @@ if (chLine2) {
     legend: { display: false },
 		title: {
         display: true,
-        text: 'Monthly Registrations in 2021'
+        text: 'Monthly Registrations in {{ date('Y') }}'
 		}
 	}
   });
@@ -136,11 +136,12 @@ if (chLine2) {
 </script>
 
 <script type="text/javascript">
+
 var chartData = {
-  labels: ["Activated", "Deactivated", "Pending"],
+  labels: {!! json_encode($data['doughnut']['labels']) !!},
   datasets: [{
-  	backgroundColor: ["#cbccce", "#8e8d8d", "#6f6f6f"],
-    data: [10, 2, 0, 0],
+  	backgroundColor: ["#5ee25e", "#ff4a4a", "#a9a6a6"],
+    data: {{ json_encode($data['doughnut']['data']) }},
   }]
 };
 

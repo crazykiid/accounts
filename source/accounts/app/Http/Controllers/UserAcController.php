@@ -17,15 +17,43 @@ class UserAcController extends Controller
 		return view('accounts.all', ['data' => $data]);
     }
 
-	//POST: ~/accounts/search
-    public function searchUserAc(Request $q)
+	//GET: ~/accounts/active
+    public function usersAct()
     {
-    	if($q->has('q'))
+    	//all();
+		$data = User_Account::where('_status', 1)->orderBy('_id', 'desc')->get()->makeHidden(['_password']);
+		return view('accounts.active', ['data' => $data]);
+    }
+
+	//GET: ~/accounts/inactive
+    public function usersDct()
+    {
+    	//all();
+		$data = User_Account::where('_status', 0)->orderBy('_id', 'desc')->get()->makeHidden(['_password']);
+		return view('accounts.inactive', ['data' => $data]);
+    }
+
+	//POST: ~/accounts/search
+    public function searchUserAc(Request $req)
+    {
+    	if($req->has('q'))
     	{
-	    	$query = $q->q;
+    		$q = $req->q;   	
 	    	try
 			{
-				$data = User_Account::where('_name', 'LIKE', "%{$query}%")->get()->makeHidden(['_password']);
+	    		if($req->has('s') && $req->s == 1)
+	    		{
+	    			$data = User_Account::where('_name', 'LIKE', "%{$q}%")->where('_status', 1)->get()->makeHidden(['_password']);
+	    		}
+	    		elseif($req->has('s') && $req->s == 0)
+	    		{
+	    			$data = User_Account::where('_name', 'LIKE', "%{$q}%")->where('_status', 0)->get()->makeHidden(['_password']);
+	    		}
+	    		else
+	    		{
+					$data = User_Account::where('_name', 'LIKE', "%{$q}%")->get()->makeHidden(['_password']);
+	    		}
+
 		    	if($data)
 		        {
 		            return response()->json(['msg' => 'success', 'data' => $data, 'status' => 200]);
@@ -105,7 +133,7 @@ class UserAcController extends Controller
 	//POST: ~/accounts/update-basic/{id}/password
     public function updatePassUserAc(Request $req, $id)
     {
-    	if($req->has('_password')){
+    	if($req->has('_password') && strlen($req->_password) > 0){
     		$password = Hash::make($req->_password);
 			try
 			{

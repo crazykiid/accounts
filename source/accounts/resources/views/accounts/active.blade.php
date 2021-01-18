@@ -1,4 +1,4 @@
-@extends('layout.layout', ['page_title' => 'User Accounts'])
+@extends('layout.layout', ['page_title' => 'Active User Accounts'])
 
 
 @section('page')
@@ -20,7 +20,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column flex-lg-row justify-content-between">
-					<h4 style="padding:5px 0px 35px;">User Accounts</h4>
+					<h4 style="padding:5px 0px 35px;">Active User Accounts</h4>
 					<div class="form-group pull-right">
 					    <input type="text" class="search form-control" placeholder="search">
 					</div>
@@ -41,7 +41,7 @@
 					<tbody class="u-list">
 						@if(count($data) == 0)
 						<tr>
-					    	<td colspan="7" style="padding:1rem .75rem;">No User Found.</td>
+					    	<td colspan="7" style="padding:1rem .75rem;">No Active Users.</td>
 					    </tr>
 						@endif
 						@foreach($data as $user)
@@ -124,7 +124,7 @@ function date(raw){
 }
 
 function resultList(d, q){
-	var data = {'q':q, '_token':'{{csrf_token()}}'}, row;
+	var data = {'q':q, 's':1,'_token':'{{csrf_token()}}'}, row;
     $.ajax({
         type:'POST',
         url:'/accounts/search',

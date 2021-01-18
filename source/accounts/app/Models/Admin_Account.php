@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin_Account extends Model
 {
-	public $table = 'Admin_Accounts';
+	public $table = 'admin_accounts';
 	public $timestamps = false;
 	public $primaryKey = '_id';
     use HasFactory;
