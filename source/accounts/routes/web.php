@@ -25,6 +25,7 @@ Route::group(['middleware' => 'admin'], function(){
 	Route::get('/accounts/all', 'App\Http\Controllers\UserAcController@usersAll');
 	Route::get('/accounts/active', 'App\Http\Controllers\UserAcController@usersAct');
 	Route::get('/accounts/inactive', 'App\Http\Controllers\UserAcController@usersDct');
+	Route::get('/accounts/suspended', 'App\Http\Controllers\UserAcController@usersSus');
 
 	Route::get('/accounts/update/{id}', 'App\Http\Controllers\UserAcController@editBasicUserAc');
 	Route::post('/accounts/update/{id}', 'App\Http\Controllers\UserAcController@updateBasicUserAc');

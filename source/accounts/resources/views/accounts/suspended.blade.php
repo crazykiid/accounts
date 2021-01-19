@@ -1,4 +1,4 @@
-@extends('layout.layout', ['page_title' => 'Active User Accounts'])
+@extends('layout.layout', ['page_title' => 'Suspended User Accounts'])
 
 
 @section('page')
@@ -20,7 +20,7 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column flex-lg-row justify-content-between">
-					<h4 style="padding:5px 0px 35px;">Active User Accounts</h4>
+					<h4 style="padding:5px 0px 35px;">Suspended User Accounts</h4>
 					<div class="form-group pull-right">
 					    <input type="text" class="search form-control" placeholder="search">
 					</div>
@@ -124,7 +124,7 @@ function date(raw){
 }
 
 function resultList(d, q){
-	var data = {'q':q, 's':1,'_token':'{{csrf_token()}}'}, row;
+	var data = {'q':q, 's':9,'_token':'{{csrf_token()}}'}, row;
     $.ajax({
         type:'POST',
         url:'/accounts/search',

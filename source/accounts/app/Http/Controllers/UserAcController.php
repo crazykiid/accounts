@@ -33,6 +33,14 @@ class UserAcController extends Controller
 		return view('accounts.inactive', ['data' => $data]);
     }
 
+	//GET: ~/accounts/suspended
+    public function usersSus()
+    {
+    	//all();
+		$data = User_Account::where('_status', 9)->orderBy('_id', 'desc')->get()->makeHidden(['_password']);
+		return view('accounts.suspended', ['data' => $data]);
+    }
+
 	//POST: ~/accounts/search
     public function searchUserAc(Request $req)
     {
@@ -48,6 +56,10 @@ class UserAcController extends Controller
 	    		elseif($req->has('s') && $req->s == 0)
 	    		{
 	    			$data = User_Account::where('_name', 'LIKE', "%{$q}%")->where('_status', 0)->get()->makeHidden(['_password']);
+	    		}
+	    		elseif($req->has('s') && $req->s == 9)
+	    		{
+	    			$data = User_Account::where('_name', 'LIKE', "%{$q}%")->where('_status', 9)->get()->makeHidden(['_password']);
 	    		}
 	    		else
 	    		{

@@ -1,4 +1,4 @@
-@extends('layout.layout', ['page_title' => 'Add New Account'])
+@extends('layout.layout', ['page_title' => 'Create Account'])
 
 
 @section('page')

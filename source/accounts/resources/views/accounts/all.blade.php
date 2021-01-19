@@ -29,7 +29,7 @@
 				<table class="table table-striped">
 					<thead>
 					    <tr>
-					      	<th scope="col">status</th>
+					      	<th scope="col">Status</th>
 					    	<th scope="col">Name</th>
 					    	<th scope="col">Email</th>
 					    	<th scope="col">Contact</th>

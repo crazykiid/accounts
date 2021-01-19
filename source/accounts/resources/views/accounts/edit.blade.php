@@ -25,8 +25,8 @@
                     <div class="pull-right">
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
+                <div class="row" style="margin:auto;border-top:1px solid #ced4da;">
+                    <div class="col-lg-6" style="padding-left:0">
                         <form class="py-3" method="post" action="">
                             @csrf
                             <div class="form-group">
@@ -46,7 +46,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="padding-left:0">
                         <form class="py-3" method="post" action="{{url('/accounts/update/'.$data->_id.'/password')}}">
                             @csrf
                             <div class="form-group">

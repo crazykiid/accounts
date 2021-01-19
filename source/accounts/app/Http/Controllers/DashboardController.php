@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User_Account;
+use DB;
 
 class DashboardController extends Controller
 {
-    //POST: ~/admin/change-password
+    //GET: ~/
     public function dashboard(Request $req)
     {
     	$data = [];
@@ -21,7 +22,6 @@ class DashboardController extends Controller
     	$data['total_sus_users'] = $sus;
 
     	// data for line chart
-    	$line = [];
     	$lineData = [];
     	$days = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
     	$day = 1;
@@ -42,39 +42,40 @@ class DashboardController extends Controller
     	{
 			$labels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
     	}
-    	$line['labels'] = $labels;
     	while($day <= $days)
     	{
-    		$uInDay = rand(0, 30);
+            $uInDay = DB::table('user_accounts')->whereRaw('DAY(_reg_at) = '.$day)->count();
     		array_push($lineData, $uInDay);
     		if($day == $c_day){
     			break;
     		}
 			$day++;
     	}
-    	$line['data'] = $lineData;
-    	$data['line'] = $line;
+        $data['line']['labels'] = $labels;
+    	$data['line']['datasets'] = [['label' => 'User Registered', 'data' => $lineData, 'borderColor' => '#3e95cd']];
 
 		// data for bar chart
-		$bar = [];
+		$barData = [];
+        $barColor = [];
     	$months = 12;
     	$month = 1;
     	$c_month = date('n');
     	while($month <= $months)
     	{
-    		$uInMonth = rand(0, 1000);
-    		array_push($bar, $uInMonth);
+            $uInMonth = DB::table('user_accounts')->whereRaw('MONTH(_reg_at) = '.$month)->count();
+    		array_push($barData, $uInMonth);
+            array_push($barColor, '#3ecd42');
     		if($month == $c_month){
     			break;
     		}
 			$month++;
     	}
     	$data['bar']['labels'] = ["Jan" , "Feb" , "Mar" , "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    	$data['bar']['data'] = $bar;
+    	$data['bar']['datasets'] = [['backgroundColor' => $barColor, 'label' => "User Registered", 'data' => $barData]];
 
     	// data for doughnut chart
-    	$data['doughnut']['labels'] = ['Active', 'Inactive', 'Suspended'];
-    	$data['doughnut']['data'] = [ $act, $dct, $sus];
+        $data['doughnut']['labels'] =  ['Active', 'Inactive', 'Suspended'];
+        $data['doughnut']['datasets'] = [['backgroundColor' => ["#5ee25e", "#ff4a4a", "#a9a6a6"], 'data'=> [ $act, $dct, $sus]]];
     	//return $data;
     	return view('dashboard', ['data' => $data]);
     }
