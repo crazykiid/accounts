@@ -44,7 +44,7 @@ class DashboardController extends Controller
     	}
     	while($day <= $days)
     	{
-            $uInDay = DB::table('user_accounts')->whereRaw('DAY(_reg_at) = '.$day)->count();
+            $uInDay = DB::table('user_accounts')->whereRaw('DAY(_reg_at) = '.$day)->whereRaw('MONTH(_reg_at) = '.date('m'))->$count();
     		array_push($lineData, $uInDay);
     		if($day == $c_day){
     			break;
